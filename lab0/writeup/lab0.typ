@@ -137,7 +137,7 @@ void loop() {
 #v(2em)
 Thresholds:
 ```C
-LIGHT_THRESHOLD = 100;
+LIGHT_THRESHOLD = 75;
 LINE_THRESHOLD = 350;
 ```
 \
@@ -289,7 +289,7 @@ The backing timer makes sure that the raptor backs away from the target for a ce
     )
 
 
-Pseudocode/PDL:
+= Pseudocode/PDL:
 ```C
 // Setup:
 setup {
@@ -332,16 +332,15 @@ loop {
   }
 }
 ```
-
-
-Final Code:
+#v(1em)
+= Final Code:
 ```C
 #include <Raptor.h>
 #include <SPI.h>
 #include <Metro.h>
 
 /*---------------Module Defines-----------------------------*/
-#define LIGHT_THRESHOLD         100   // *Choose your own thresholds*
+#define LIGHT_THRESHOLD         75   // *Choose your own thresholds*
                                     // (this will be smaller at night)
 #define LINE_THRESHOLD          350   // *Choose your own thresholds*
 

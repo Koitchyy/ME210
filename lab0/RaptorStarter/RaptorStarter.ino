@@ -3,12 +3,12 @@
 #include <Metro.h>
 
 /*---------------Module Defines-----------------------------*/
-#define LIGHT_THRESHOLD         100   // *Choose your own thresholds*
+#define LIGHT_THRESHOLD         80   // *Choose your own thresholds*
                                     // (this will be smaller at night)
 #define LINE_THRESHOLD          350   // *Choose your own thresholds*
 
 #define LED_TIME_INTERVAL       2000
-#define MOTOR_TIME_INTERVAL     2000
+#define MOTOR_TIME_INTERVAL     1000
 #define BACKING_TIME            3000
 #define ROTATE_TIME             2000
 
@@ -72,9 +72,10 @@ void setup() {
   Serial.begin(9600);
   while(!Serial);
   Serial.println("Raptors initialized!");
-  
   state = STATE_MOVE_FORWARD;
   isLEDOn = false;
+  raptor.LeftMtrSpeed(HALF_SPEED);
+  raptor.RightMtrSpeed(HALF_SPEED);
 }
 
 void loop() {
@@ -104,8 +105,6 @@ void loop() {
 
 // void loop() {
 //   checkGlobalEventsRaptor();
-
-//   Serial.println(read_light_lvl());
 //   // main code
 //   switch (state) {
 //     case LURK:
