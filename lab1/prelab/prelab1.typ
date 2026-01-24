@@ -68,7 +68,12 @@
 
 = Question 0.3
 #v(1em)
-#underline[Draw a schematic of the configuration you will use for Part 4 using KiCad.]
++ #underline[Draw a schematic of the configuration you will use for Part 4 using KiCad.]
+
+#figure(
+  image("q4.png", height: 43%),
+  caption: "Waveform from adder_tb.v",
+)
 
 
 
