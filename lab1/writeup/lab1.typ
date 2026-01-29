@@ -51,7 +51,16 @@
 #set enum(numbering: "(a)")
 == Q1.3 Variable Frequency Control via Potentiometers
 + Why would building a unity gain buffer for this signal (using the MCP6294) be a bad idea?
-+ What limitation would this impose?
+  The unity gain buffer for the signal would be a bad idea because if the potentiometer was set to the lowest resistance, then there would be a high current passing through to the analog pin of the arduino, damaging the terminal.
+
+
++ What limitation would this impose? \
+  The limitation would be on potentiometer, where the wiper could only be turned to the point where up to 20mA of current can pass through.
+
+  #figure(
+    image("Q1_3Sch.png"),
+    caption: "Waveform from adder_tb.v",
+  )
 
 Code \
 #codly(highlights: (
