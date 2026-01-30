@@ -20,8 +20,6 @@
 //   Serial.begin(9600);
   
 //   pinMode(PIN_ACTIVE, OUTPUT);
-//   digitalWrite(PIN_ACTIVE, LOW);
-
 //   ITimer1.init();
 // }
 
@@ -42,18 +40,87 @@
 // }
 
 
+// #include "TimerInterrupt.h"
+// #include "ISR_Timer.h"
+// #define OUTPUT_PIN 10
+// volatile bool toggleState = LOW;
+// void toggle(){
+//   toggleState = !toggleState;
+//   digitalWrite(OUTPUT_PIN, toggleState);
+// }
+// void setup(){
+//   pinMode(OUTPUT_PIN, OUTPUT);
+//   ITimer1.init();
+//   ITimer1.setFrequency(2500, toggle);
+// }
+// void loop(){
+// }
+
+
 #include "TimerInterrupt.h"
 #include "ISR_Timer.h"
 #define OUTPUT_PIN 10
+#define PIN_SIGNAL_IN 2
+#define POT_PIN    A1
+
 volatile bool toggleState = LOW;
+volatile uint16_t counter = 0;
+unsigned long last_printed_time = 0;
+float last_freq = -1.0;
+
 void toggle(){
   toggleState = !toggleState;
   digitalWrite(OUTPUT_PIN, toggleState);
 }
+
+// ISR
+void CountFallingEdges(){
+  counter++;
+}
+
+float calc_freq(uint16_t edge_counts, uint16_t time_ms) {
+  if (time_ms==0) return 0;
+  return edge_counts / (time_ms / 1000.0);
+}
 void setup(){
+  Serial.begin(9600);
+  // Setting the timer for frequency
   pinMode(OUTPUT_PIN, OUTPUT);
   ITimer1.init();
-  ITimer1.setFrequency(2500, toggle);
+  // ITimer1.setFrequency(2500, toggle);
+
+  // Counting falling edges
+  pinMode(PIN_SIGNAL_IN, INPUT);
+  attachInterrupt(digitalPinToInterrupt(PIN_SIGNAL_IN), CountFallingEdges, FALLING);
 }
+
 void loop(){
+  // Count edges
+  if (millis() - last_printed_time > 1000) {
+    // want no interrupts when resetting counter and time
+    noInterrupts();
+    unsigned long counter_copy = counter;
+    unsigned long current_time = millis();
+    counter=0;
+    interrupts();
+
+    unsigned long elapsed_time = current_time - last_printed_time;
+    float freq = calc_freq(counter_copy, elapsed_time);
+
+    Serial.print("Frequency (Hz): ");
+    Serial.println(freq);
+    counter = 0;
+    last_printed_time = current_time;
+  }
+
+  // Read Potentiometer to get frequency
+  int pot_val = analogRead(POT_PIN);
+  float freq = map(pot_val, 0, 1023, 50, 12500); // Hz
+  float timer_freq = 2*freq;
+  // hysteresis
+  if (abs(timer_freq - last_freq) > 50.0) {
+    last_freq = timer_freq;
+    ITimer1.detachInterrupt();
+    ITimer1.attachInterrupt(timer_freq, toggle);
+  }
 }
