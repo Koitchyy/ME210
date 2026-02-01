@@ -88,7 +88,7 @@
 
 #figure(
   image("q2-3.png", height: 40%),
-  caption: "Waveform of Phototransistor output",
+  caption: "Waveform of Phototransistor sourcing configuration (1kΩ Load Resistance)",
 )
 
 == Q2.5 KiCAD Schematic of 2.4
@@ -102,7 +102,7 @@
 
 #figure(
   image("q2-6.png"),
-  caption: "Waveform of Phototransistor Sinking configuration",
+  caption: "Waveform of Phototransistor Sinking configuration (1kΩ Load Resistance)",
 )
 
 == Q2.7 Differences in Captured Waveforms
@@ -185,7 +185,7 @@
 
 == Q3.6
 - Describe the oscilloscope settings you used to make the measurements in part 3.5. Why is the configuration you chose the best configuration for making this measurement? If not, explain the deviation(s). \
-  The oscilloscope was set so that the
+  Used Amplitude on the oscilloscope to measure when value was outputting as high. This was used because peak-to-peak was not measuring to the top of the waveform.
 
 = #underline[Part 4: Trans-resistive Amplifiers]
 
