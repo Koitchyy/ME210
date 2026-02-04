@@ -52,47 +52,40 @@
 #set enum(numbering: "(a)")
 = Question 0.1
 #v(1em)
-#underline[What are the values of resistors with the following color codes:]
+#underline[Decide which Arduino ports and pins you will use to control the motors (all parts of the lab).]
 
-+ #text(fill: red)[red red red]: *2.2 k$Omega$*
-+ #text(fill: rgb("#6d1010"))[brown] #text(fill: black)[black] #text(fill: red)[red]: *1 k$Omega$*
-+ #text(fill: yellow)[yellow] #text(fill: rgb("#8b1fff"))[violet] #text(fill: orange)[orange]: *47 k$Omega$*
-+ #text(fill: rgb("#6d1010"))[brown] #text(fill: black)[black] #text(fill: green)[green]: *1 M$Omega$*
+== Part 1
+- *5V pin* to potentiometer
+- *GND pin* to potentiometer
+- Potentiometer wiper to *A1* (to be fed analog voltage input)
+- *D7 pin* to output our DIY PWM onto motor
+
+
+== Part 2
+- Same pins to potentiometer
+- *D6 pin* (PWM pin) as outputting square wave with analogWrite() frequency connected to the 5V ENA pin on the L298.
+- *D5 pin* going to IN1.
+- *D4 pin* going to IN2.
+- These set the logic low and high, determining motor spin direction on the L298, and can also "brake" the motor by setting to the same voltage.
+- *GND* to GND of the L298.
+
+#figure(
+  image("arduinoPinout.png", height: 40%),
+  caption: "Selected pins (boxed in red)",
+)
 
 = Question 0.2
 #v(1em)
-#underline[Decide which Arduino ports and pins you will use to control the motors (all parts of the lab).]
+#underline[Decide what, if any, initialization is required for each pin.]
+- Part 1:
+  - Initialize D7 pin as an output pin
 
-+ 223: $22 times 10^3$ pF = *22 nF*
-+ 476: $47 times 10^6$ pF = *47 uF*
-
-= Question 0.3
-#v(1em)
-+ #underline[Draw a schematic of the configuration you will use for Part 4 using KiCad.]
-
-// #figure(
-//   image("q4.png", height: 43%),
-//   caption: "Waveform from adder_tb.v",
-// )
+- Part 2:
+  - Initialize D4 and D5 as output pins.
 
 
 
 
 
-= Question 0.4
-#v(1em)
-#underline[Write, compile, and upload a program that outputs "Hello, World!" to the serial terminal once every second on the Arduino.]
 
-```C
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  while(!Serial);
-}
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  Serial.println("Hello, World!");
-  delay(1000);
-}
-```

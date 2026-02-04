@@ -66,10 +66,10 @@
 == Q1.4 Waveform + Frequency
 + What is the frequency of the duty cycle waveform that you are generating?
 
-  #figure(
-    // image("q1-4.png", height: 30%),
-    caption: "Oscilloscope Waveform of Duty Cycle",
-  )
+// #figure(
+//   // image("q1-4.png", height: 30%),
+//   // caption: "Oscilloscope Waveform of Duty Cycle",
+// )
 
 == Q1.5 Increasing Operating Frequency
 + Can you find a way to increase the operating frequency? What are the limitations of these methods?
@@ -91,10 +91,10 @@
 == Q2 Circuit Schematic
 + Include a schematic of the circuit (indicating Arduino pins).
 
-  #figure(
-    // image("q2-schematic.png", height: 40%),
-    caption: "Schematic of the circuit for Part 2",
-  )
+// #figure(
+//   // image("q2-schematic.png", height: 40%),
+//   caption: "Schematic of the circuit for Part 2",
+// )
 
 == Q2 Source Code
 + Include a listing of the source code used to drive the motor using the L298.
