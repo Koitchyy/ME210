@@ -156,3 +156,6 @@ A higher PWM frequency decreases ripple because there is less time for the curre
 ```C
 // paste part 2 code here
 ```
+
+== Q2 Schematic
+#image("schematic.png")
