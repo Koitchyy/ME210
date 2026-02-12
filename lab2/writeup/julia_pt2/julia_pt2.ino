@@ -28,6 +28,7 @@ void loop(){
 
     //key press changes rotation direction 
     if (Serial.available()){ //something in the serial monitor 
+        delay(50);
         clear_serial(); //clear serial for next time
         change_direction();  // change rotation direction 
     }
