@@ -139,6 +139,7 @@ A higher PWM frequency decreases ripple because there is less time for the curre
 
 == Q2 Circuit Schematic
 + Include a schematic of the circuit (indicating Arduino pins).
+#image("schematic.png")
 
 // #figure(
 //   // image("q2-schematic.png", height: 40%),
@@ -147,15 +148,61 @@ A higher PWM frequency decreases ripple because there is less time for the curre
 
 == Q2 Source Code
 + Include a listing of the source code used to drive the motor using the L298.
-
 #codly(
   highlights: (
     // (line: 1, start: 1, fill: red),
   ),
 )
 ```C
-// paste part 2 code here
+// output pin definitions 
+#define IN_1 5 //IN1 and IN2 are terminals on the L298 
+#define IN_2 4
+#define PWM_PIN 6 //to A_enable on L298 
+#define POT_PIN A1
+
+volatile bool in1_state = LOW;
+volatile bool in2_state = HIGH; 
+
+void setup(){
+    Serial.begin(9600);
+
+    pinMode(IN_1, OUTPUT); 
+    pinMode(IN_2, OUTPUT); 
+    pinMode(PWM_PIN, OUTPUT);
+}
+
+void loop(){
+    int val = analogRead(POT_PIN);
+    int duty_cycle = map(val, 0, 1023, 0, 255); 
+    analogWrite(PWM_PIN, duty_cycle); 
+
+    //direction of motor 
+    digitalWrite(IN_1, in1_state);
+    digitalWrite(IN_2, in2_state);
+
+    //key press changes rotation direction 
+    if (Serial.available()){ //something in the serial monitor 
+        delay(50);
+        clear_serial(); //clear serial for next time
+        change_direction();  // change rotation direction 
+    }
+}
+
+void change_direction(){
+    // change motor direction by toggling states 
+    in1_state = !in1_state;
+    in2_state = !in2_state;
+}
+
+void clear_serial(){
+    // clears serial buffer
+    while (Serial.available()){
+        Serial.read();
+    }
+}
 ```
 
-== Q2 Schematic
-#image("schematic.png")
+
+
+
+Checked off by: Tamir Ovedya, Noah Haile 
